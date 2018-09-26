@@ -1,7 +1,7 @@
 package com.lee.mapper;
 
-import com.lee.common.CommonMapper;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.lee.entity.User;
 
-public interface UserMapper extends CommonMapper<User> {
+public interface UserMapper extends BaseMapper<User> {
 }

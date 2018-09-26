@@ -5,15 +5,21 @@ import lombok.Data;
 
 import java.util.Date;
 
-@TableName("user")
+@TableName("t_user")
 @Data
 public class User {
 
     private Integer id;
     private String userName;
     private String password;
-    private String email;
-    private String phone;
-    private Date createTime;
-    private Date updateTime;
+    private Integer roleId;
+
+    public User(){
+
+    }
+
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
 }
