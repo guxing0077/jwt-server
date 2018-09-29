@@ -3,12 +3,10 @@ package com.lee.controller;
 import com.lee.common.BaseController;
 import com.lee.common.JsonRes;
 import com.lee.res.login.LoginReq;
+import com.lee.res.login.LogoutReq;
 import com.lee.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class IndexController extends BaseController {
@@ -24,5 +22,11 @@ public class IndexController extends BaseController {
     @PostMapping("login")
     public JsonRes<String> login(@RequestBody LoginReq loginReq){
         return success(userService.login(loginReq));
+    }
+
+    @PostMapping("logout")
+    public JsonRes logout(@RequestBody LogoutReq logoutReq){
+        userService.logout(logoutReq);
+        return success();
     }
 }

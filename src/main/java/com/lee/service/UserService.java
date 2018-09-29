@@ -3,6 +3,7 @@ package com.lee.service;
 import com.baomidou.mybatisplus.service.IService;
 import com.lee.entity.User;
 import com.lee.res.login.LoginReq;
+import com.lee.res.login.LogoutReq;
 
 public interface UserService extends IService<User> {
 
@@ -12,4 +13,11 @@ public interface UserService extends IService<User> {
      * @return token
      */
     String login(LoginReq loginReq);
+
+
+    /**
+     * 退出登录
+     * @param logoutReq
+     */
+    void logout(LogoutReq logoutReq);
 }

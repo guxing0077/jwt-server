@@ -24,7 +24,7 @@ public class ExceptionAdvice {
         logger.error("exception:", e);
         JsonRes jsonRes = new JsonRes();
         jsonRes.setSuccess(false);
-        jsonRes.setMsg(e.toString());
+        jsonRes.setMsg(e.getMessage());
         return jsonRes;
     }
 }

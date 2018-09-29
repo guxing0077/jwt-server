@@ -7,10 +7,12 @@ import com.lee.exception.BusinessException;
 import com.lee.mapper.MenuMapper;
 import com.lee.mapper.UserMapper;
 import com.lee.res.login.LoginReq;
+import com.lee.res.login.LogoutReq;
 import com.lee.service.UserService;
 import com.lee.utils.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -42,7 +44,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String token =  JwtHelper.genToken(ImmutableMap.of("userName", user.getUserName(), "permIds", permIds.toString()));
         //缓存token
         redisTemplate.opsForValue().set(loginReq.getUserName(), token);
-        redisTemplate.expire(loginReq.getUserName(), 3, TimeUnit.DAYS);
+        redisTemplate.expire(loginReq.getUserName(), 1, TimeUnit.MINUTES);
         return token;
+    }
+
+    @Override
+    public void logout(LogoutReq logoutReq) {
+        User user = userMapper.selectOne(new User(logoutReq.getUserName()));
+        if(user==null){
+            throw new BusinessException("用户名不存在");
+        }
+        //删除redis数据
+        redisTemplate.delete(logoutReq.getUserName());
     }
 }
